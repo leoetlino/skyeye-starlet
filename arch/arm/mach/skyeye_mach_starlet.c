@@ -2645,7 +2645,7 @@ static void starlet_do_ipc(ARMul_State *state)
 							starlet_host2arm(state, arg, buf, len);
 						break;
 					case MSG_STATE:
-						printf("IPC: STATE\n");
+						// printf("IPC: STATE\n");
 						memcpy(cstate.regs, state->Reg, sizeof(state->Reg));
 						memcpy(cstate.regs_banked, state->RegBank, sizeof(state->RegBank));
 						cstate.cpsr = state->Cpsr;
