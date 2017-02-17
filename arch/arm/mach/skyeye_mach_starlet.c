@@ -2805,7 +2805,7 @@ static void starlet_io_do_cycle(ARMul_State *state)
 	}
 	//starlet_print_context(state);
 	ipc_update_int(state);
-	if (++ipc_div > 100) {
+	if (++ipc_div > 2) {
 #ifndef IPC_DOLPHIN
 		starlet_do_ipc(state);
 #else
