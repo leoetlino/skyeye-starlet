@@ -653,7 +653,8 @@ static void starlet_print_context(ARMul_State *state) {
 		if(ctx == C_UNKNOWN) {
 			printf("[STARLET]: ========= NOW RUNNING IN   0x%04x CONTEXT (pc:%08x) =========\n", pc>>16, ARMul_GetPC(state));
 		} else if(ctx != lctx) {
-			printf("[STARLET]: ========= NOW RUNNING IN %8s CONTEXT (pc:%08x) =========\n", ctx_names[ctx], ARMul_GetPC(state));
+			int ios_version = mem_read_word(state, 0x3140) >> 16;
+			printf("[STARLET]: ========= NOW RUNNING IN %8s CONTEXT (pc:%08x - IOS version: %u) =========\n", ctx_names[ctx], ARMul_GetPC(state), ios_version);
 		}
 		lctx = ctx;
 		lpc = pc;
