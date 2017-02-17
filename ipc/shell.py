@@ -6,6 +6,9 @@ from ipc import *
 import __main__
 import __builtin__
 
+import rlcompleter
+readline.parse_and_bind("tab: complete")
+
 ipc = SkyeyeIPC()
 
 saved_display = sys.displayhook
