@@ -3210,6 +3210,8 @@ int syscalls_IOS30[0x100] = {
 
 int disabled_syscalls[0x200] = {
 	[SC_AESDECRYPTASYNC] = 1,
+	[SC_AESENCRYPTASYNC] = 1,
+	[SC_VERIFYHASH] = 1,
 	[SC_HMAC] = 1,
 	[SC_HMACASYNC] = 1,
 };
