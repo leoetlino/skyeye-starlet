@@ -1759,6 +1759,7 @@ static ARMword starlet_sdio_read(ARMul_State *state, ARMword addr)
 	switch(addr & 0xFFFF) {
 		case 0x0024: 	return 0x01ff0000;
 		case 0x002C: 	return 0x00000002;
+		case 0x0030:  return 1;
 		case 0x0040: 	return 0x01e130b0;
 		default:
 		break;
