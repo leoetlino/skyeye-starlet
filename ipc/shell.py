@@ -17,7 +17,10 @@ def display(val):
 	global saved_display
 	if isinstance(val, int) or isinstance(val, long):
 		__builtin__._ = val
-		print hex(val)
+		if val < 0:
+			print int(val)
+		else:
+			print hex(val)
 	else:
 		saved_display(val)
 
