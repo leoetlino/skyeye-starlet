@@ -3228,7 +3228,7 @@ int starlet_undefined_trap (ARMul_State * state, ARMword instr) {
 			lbp = '\n';
 		}
 		int iosversion = mem_read_word(state, 0x3140) >> 16;
-		int *sctab = NULL;
+		int *sctab = syscalls_IOS30;
 		switch(iosversion) {
 			case 30:
 				sctab = syscalls_IOS30;
