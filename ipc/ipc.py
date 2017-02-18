@@ -410,8 +410,8 @@ class IOSIoctlv(IPCRequest):
 		return IPCRequest.prepare(self,ipcdev)
 
 class SkyeyeIPC(SkyeyeProtocol):
-	def __init__(self, file="ipcsock", heaplo=0x11000000, heaphi=0x12000000):
-		SkyeyeProtocol.__init__(self, file)
+	def __init__(self, file="ipcsock", heaplo=0x135e0000, heaphi=0x16000000):
+		SkyeyeProtocol.__init__(self, "/tmp/dolphin_ipc")
 		self.mem = MemMgr(heaplo, heaphi)
 		self.requests = {}
 
