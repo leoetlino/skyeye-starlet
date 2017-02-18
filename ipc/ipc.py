@@ -93,7 +93,7 @@ class SkyeyeProtocol(object):
 		self.readbuf = None
 		self.ppcstat = None
 		self.acks = 0
-	
+
 	def sendmsg(self, msg, arg=0, buf=""):
 		self.s.send(struct.pack("III", msg, arg, len(buf)) + buf)
 	def recvmsg(self):
@@ -130,10 +130,10 @@ class SkyeyeProtocol(object):
 		self.sendmsg(self.MSG_WRITE, addr, buf)
 	def ipcrequest(self, addr):
 		self.sendmsg(self.MSG_MESSAGE, addr)
-	
+
 	def ipcreply(self, addr):
 		print "Unhandled IPC reply: %08x"%addr
-	
+
 	def clearack(self):
 		self.acks = 0
 	def sendack(self):
@@ -147,9 +147,9 @@ class SkyeyeProtocol(object):
 		self.sendmsg(self.MSG_STATE)
 		while self.statebuf is None:
 			self.processmsg()
-		
+
 		return EmuState(self.statebuf)
-	
+
 	def read32(self, addr):
 		return struct.unpack(">I", self.readmem(addr, 4))[0]
 	def read16(self, addr):
@@ -289,7 +289,7 @@ class IPCRequest(object):
 		self.result = struct.unpack(">i", self.ipcdev.readmem(self.addr+4, 4))[0]
 		self.free()
 		self.done = True
-	
+
 	def free(self):
 		for buf in self.freebufs:
 			buf.free()
@@ -317,7 +317,7 @@ class IOSOpen(IPCRequest):
 		self.freebufs.append(pathbuf)
 		self.args = [pathbuf.addr, self.mode]
 		return IPCRequest.prepare(self,ipcdev)
-	
+
 class IOSClose(IPCRequest):
 	def __init__(self, fd):
 		IPCRequest.__init__(self, 2, fd)
@@ -351,7 +351,7 @@ class IOSSeek(IPCRequest):
 	def prepare(self, ipcdev):
 		self.args = [self.where & 0xFFFFFFFF, self.whence]
 		return IPCRequest.prepare(self,ipcdev)
-	
+
 class IOSIoctl(IPCRequest):
 	def __init__(self, fd, ioctl, bufi=None, bufo=None):
 		self.ioctl = ioctl
@@ -388,7 +388,7 @@ class IOSIoctlv(IPCRequest):
 				raise ValueError("bad ioctlv format")
 			left = left[1:]
 		return bufs, left
-	
+
 	def prepare(self, ipcdev):
 		fmt = self.format
 		if ':' not in self.format:
@@ -403,7 +403,7 @@ class IOSIoctlv(IPCRequest):
 		blist = ""
 		for addr, size in ibufs + obufs:
 			blist += struct.pack(">II", addr, size)
-		
+
 		blbuf = ipcdev.makebuf(blist)
 		self.freebufs.append(blbuf)
 		self.args = [self.ioctl, len(ibufs), len(obufs), blbuf.addr]
@@ -423,7 +423,7 @@ class SkyeyeIPC(SkyeyeProtocol):
 		return addr
 	def free(self, size):
 		return self.mem.free(size)
-	
+
 	def async(self, req):
 		addr = req.prepare(self)
 		self.requests[addr] = req
@@ -437,13 +437,13 @@ class SkyeyeIPC(SkyeyeProtocol):
 			self.requests[addr].reply()
 			return
 		print "Unhandled IPC reply: %08x"%addr
-	
+
 	def delreq(self, addr):
 		del self.requests[addr]
-	
+
 	def makebuf(self, arg):
 		return IPCBuffer(self, arg)
-	
+
 	def IOSOpen(self, path, mode=0):
 		return self.sync(IOSOpen(path, mode))
 	def IOSClose(self, fd):
