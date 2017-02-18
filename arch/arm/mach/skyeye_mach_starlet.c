@@ -49,7 +49,7 @@
 
 #define STARLET_DEBUG			1
 
-#define IPC_DOLPHIN
+// #define IPC_DOLPHIN
 
 #define PRINT(x...)			printf("[STARLET]: " x)
 
@@ -2422,7 +2422,7 @@ enum ipc_state {
 	IPC_SNDACK,
 };
 
-#define SOCK_PATH "ipcsock"
+#define SOCK_PATH "/tmp/dolphin_ipc"
 #define DOLPHIN_SOCK_PATH "/tmp/dolphin_ipc"
 
 static int sendall(int s, void *buf, int len)
