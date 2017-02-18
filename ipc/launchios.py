@@ -3,14 +3,14 @@
 import sys
 from ipc import *
 
-ios = int(sys.argv[1])
-titleID = 0x100000000 | ios
+# ios = int(sys.argv[1])
+titleID = int(sys.argv[1], 16)
 
 print "Waiting for IPC to start up..."
 ipc = SkyeyeIPC()
 ipc.init()
 print "IPC ready"
-print "Going to launch IOS%d"%ios
+# print "Going to launch IOS%d"%ios
 
 fd = ipc.IOSOpen("/dev/es")
 print "ES fd: %d"%fd
@@ -41,7 +41,6 @@ tikbuf.free()
 if ipc.acks != 0:
 	ipc.sendack()
 	launchres.free()
-	print "IOS%d launched"%ios
 else:
 	print "Error %d while launching"%launchres.result
 	ipc.IOSClose(fd)
